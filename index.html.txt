@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>জমজম শপ | অর্ডার কনফার্মেশন</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f7f1;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:#fff;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 5px 25px rgba(0,0,0,.15);
+}
+
+.header{
+background:linear-gradient(135deg,#0f6b2b,#1f8f3c);
+padding:20px;
+text-align:center;
+color:white;
+}
+
+.logo{
+width:120px;
+margin:auto;
+display:block;
+}
+
+.owner{
+width:180px;
+height:180px;
+object-fit:cover;
+border-radius:50%;
+border:5px solid #fff;
+margin:15px auto;
+display:block;
+}
+
+.title{
+font-size:30px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.subtitle{
+font-size:18px;
+margin-top:8px;
+}
+
+.mango-section{
+display:flex;
+gap:10px;
+padding:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.mango-section img{
+width:220px;
+border-radius:15px;
+}
+
+.form-area{
+padding:25px;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:15px;
+margin-bottom:5px;
+}
+
+input,select,textarea{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+font-size:16px;
+}
+
+.price-box{
+background:#e8fff0;
+padding:15px;
+margin-top:15px;
+border-radius:10px;
+font-size:22px;
+font-weight:bold;
+color:#0f6b2b;
+text-align:center;
+}
+
+.order-btn{
+width:100%;
+padding:15px;
+margin-top:20px;
+background:#0f6b2b;
+color:white;
+font-size:20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.footer{
+padding:15px;
+background:#fff5d6;
+text-align:center;
+font-weight:bold;
+font-size:18px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<!-- এখানে আপনার লোগোর GitHub image link বসাবেন -->
+<img src="logo.png" class="logo">
+
+<div class="title">জমজম শপ</div>
+
+<img src="owner.jpg" class="owner">
+
+<div class="subtitle">
+🥭 নওগাঁ সাপাহারের বিখ্যাত আম্রপালি<br>
+🥭 রংপুরের বিখ্যাত হাড়িভাঙা
+</div>
+
+</div>
+
+<div class="mango-section">
+
+<img src="amropali.jpg">
+<img src="haribhanga.jpg">
+
+</div>
+
+<div class="form-area">
+
+<label>আপনার নাম</label>
+<input type="text" id="name">
+
+<label>মোবাইল নম্বর</label>
+<input type="text" id="mobile">
+
+<label>গ্রাম</label>
+<input type="text" id="village">
+
+<label>থানা / উপজেলা</label>
+<input type="text" id="thana">
+
+<label>জেলা</label>
+<input type="text" id="district">
+
+<label>সম্পূর্ণ ঠিকানা</label>
+<textarea id="address"></textarea>
+
+<label>আম নির্বাচন করুন</label>
+<select id="mango" onchange="updatePrice()">
+<option value="">নির্বাচন করুন</option>
+<option value="আম্রপালি">আম্রপালি</option>
+<option value="হাড়িভাঙা">হাড়িভাঙা</option>
+</select>
+
+<label>প্যাকেজ নির্বাচন করুন</label>
+<select id="package" onchange="updatePrice()">
+<option value="">নির্বাচন করুন</option>
+
+<option value="10">আম্রপালি ১০ কেজি</option>
+<option value="20">আম্রপালি ২০ কেজি</option>
+
+<option value="11">হাড়িভাঙা ১১ কেজি</option>
+<option value="22">হাড়িভাঙা ২২ কেজি</option>
+
+</select>
+
+<div class="price-box">
+মোট মূল্য: <span id="price">0</span> টাকা
+</div>
+
+<button class="order-btn" onclick="sendOrder()">
+✅ অর্ডার কনফার্ম করুন
+</button>
+
+</div>
+
+<div class="footer">
+🚚 ডেলিভারি চার্জ ফ্রি | 💵 Cash On Delivery
+</div>
+
+</div>
+
+<script>
+
+function updatePrice(){
+
+let pkg=document.getElementById("package").value;
+
+let price=0;
+
+if(pkg=="10") price=1390;
+if(pkg=="20") price=2700;
+if(pkg=="11") price=1190;
+if(pkg=="22") price=2290;
+
+document.getElementById("price").innerText=price;
+
+}
+
+function sendOrder(){
+
+let name=document.getElementById("name").value;
+let mobile=document.getElementById("mobile").value;
+let village=document.getElementById("village").value;
+let thana=document.getElementById("thana").value;
+let district=document.getElementById("district").value;
+let address=document.getElementById("address").value;
+let mango=document.getElementById("mango").value;
+let pkg=document.getElementById("package").value;
+let price=document.getElementById("price").innerText;
+
+let text=
+`🥭 জমজম শপ অর্ডার
+
+নাম: ${name}
+মোবাইল: ${mobile}
+
+আম: ${mango}
+প্যাকেজ: ${pkg} কেজি
+মূল্য: ${price} টাকা
+
+গ্রাম: ${village}
+থানা: ${thana}
+জেলা: ${district}
+
+ঠিকানা:
+${address}`;
+
+window.open(
+"https://wa.me/8801339423178?text="+encodeURIComponent(text),
+"_blank"
+);
+
+}
+
+</script>
+
+</body>
+</html>
